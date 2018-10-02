@@ -3,42 +3,44 @@
  */
 let cards = [],
   icones = [
-    'fa fa-diamond',
-    'fa fa-paper-plane-o',
-    'fa fa-anchor',
-    'fa fa-bolt',
-    'fa fa-cube',
-    'fa fa-leaf',
-    'fa fa-bicycle',
-    'fa fa-bomb'
+    'fa-diamond',
+    'fa-paper-plane-o',
+    'fa-anchor',
+    'fa-bolt',
+    'fa-cube',
+    'fa-leaf',
+    'fa-bicycle',
+    'fa-bomb',
+    'fa-diamond',
+    'fa-paper-plane-o',
+    'fa-anchor',
+    'fa-bolt',
+    'fa-cube',
+    'fa-leaf',
+    'fa-bicycle',
+    'fa-bomb'
   ];
+let icone;
+
+const ul = document.querySelector('.deck');
 
 let criarCards = (arr) => {
   for (let i = 0; i < 16; i++){
     arr.push(document.createElement('li'));
-    arr[i].appendChild(document.createElement('i'));
+    icone = document.createElement('i');
+    icone.classList.toggle('fa');
+    icone.classList.toggle(icones[i]);
+    arr[i].appendChild(icone);
   }
+  arr.forEach((card) => {
+    card.classList.toggle('card');
+  });
 }
 
-criarCards(cards);
-
-cards.forEach((card) => {
-  card.classList.toggle('card');
-
-});
-
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
-
-
-
 // Shuffle function from http://stackoverflow.com/a/2450976
-function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+
+let shuffle = (array) => {
+    let currentIndex = array.length, temporaryValue, randomIndex;
 
     while (currentIndex !== 0) {
         randomIndex = Math.floor(Math.random() * currentIndex);
@@ -51,6 +53,24 @@ function shuffle(array) {
     return array;
 }
 
+let exibir = () => {
+  cards.forEach(card => {
+    ul.appendChild(card);
+  });
+};
+
+criarCards(cards);
+
+/*
+ * Display the cards on the page
+ *   - shuffle the list of cards using the provided "shuffle" method below
+ *   - loop through each card and create its HTML
+ *   - add each card's HTML to the page
+ */
+
+shuffle(cards);
+
+exibir();
 
 /*
  * set up the event listener for a card. If a card is clicked:
