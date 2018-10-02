@@ -3,12 +3,28 @@
  */
 let cards = []
 
+let criarCards = (arr) => {
+  for (let i = 0; i < 16; i++){
+    arr.push(document.createElement('li'));
+    arr[i].appendChild(document.createElement('i'));
+  }
+}
+
+criarCards(cards);
+
+cards.forEach((card) => {
+  card.classList.toggle('card');
+
+});
+
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+
+
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
