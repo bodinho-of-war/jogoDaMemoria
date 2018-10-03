@@ -83,14 +83,22 @@ exibir();
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
-let verificar = () => {
+let mostrar = () => {
     event.target.classList.toggle('open');
     event.target.classList.toggle('show');
 };
 
+let verificar = (element) => {
+  cards.forEach(card => {
+    if(card.classList[1] === 'open'){
+      validar(element.firstElementChild, card.firstElementChild);
+    }
+  });
+}
+
 let adcionarListeners = (arr) => {
   arr.forEach( item => {
-    item.addEventListener('click', verificar);
+    item.addEventListener('click', mostrar);
   });
 };
 
