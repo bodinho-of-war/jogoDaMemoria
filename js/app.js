@@ -22,6 +22,7 @@ let cards = [],
   ];
 let icone;
 let contador = 0;
+let move = 0;
 let el1;
 let el2;
 
@@ -71,9 +72,17 @@ criarCards(cards);
  *   - add each card's HTML to the page
  */
 
+//INCREMENTA O CONTADOR DE MOVIMENTOS
+
+ let marcaPonto = () => {
+   document.querySelector('.moves').textContent = move;
+ }
+
 shuffle(cards);
 
 exibir();
+
+marcaPonto();
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -86,6 +95,16 @@ exibir();
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+//REMOVE TODOS OS EVENTSLISTENERS
+
+ let removerListeners = (arr) => {
+   arr.forEach(item => {
+       item.removeEventListener('click', mostrar);
+   });
+ };
+
+//REMOVER AS CLASSES OPEN E SHOW DOS ELEMENTOS CARDS
+
 let esconder = (arr) => {
   arr.forEach(item => {
     item.classList.remove('open');
@@ -93,16 +112,22 @@ let esconder = (arr) => {
   });
 };
 
+//VERIFICA SE AS CLASSES DOS ICONES SÃO IGUAIS
+
 let validar = (element1, element2) => {
      removerListeners(cards);
      contador = 0;
+     move++;
      if (element1.classList[1].toString() == element2.classList[1].toString()) {
        element1.parentElement.classList.add('match');
        element2.parentElement.classList.add('match');
     }
     setTimeout(esconder, 1000, cards);
     setTimeout(adcionarListeners, 1050, cards);
+    marcaPonto();
  }
+
+//ADICIONA AS CLASSES OPEN E SHOW AOS ELEMENTOS CARDS
 
 let mostrar = () => {
     contador++;
@@ -116,16 +141,13 @@ let mostrar = () => {
     el1.removeEventListener('click', mostrar);
 };
 
+//ADICIONA EVENTLISTENERS A TODOS OS ELEMENTOS CARD
+
 let adcionarListeners = (arr) => {
   arr.forEach( item => {
     item.addEventListener('click', mostrar);
   });
 };
 
-let removerListeners = (arr) => {
-  arr.forEach(item => {
-      item.removeEventListener('click', mostrar);
-  });
-};
 
 adcionarListeners(cards);
