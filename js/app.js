@@ -113,6 +113,7 @@ let mostrar = () => {
       validar(el1.firstElementChild, el2.firstElementChild);
     }
     el1 = event.target;
+    el1.removeEventListener('click', mostrar);
 };
 
 let adcionarListeners = (arr) => {
