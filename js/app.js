@@ -21,6 +21,8 @@ let cards = [],
     'fa-bomb'
   ];
 let icone;
+let contador;
+
 
 const ul = document.querySelector('.deck');
 
@@ -83,18 +85,36 @@ exibir();
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 
+let esconder = (arr) => {
+  arr.forEach(item => {
+    item.classList.remove('open');
+    item.classList.remove('show');
+  });
+};
+
+ let verificar = (element) => {
+   cards.forEach(card => {
+     if(card.classList[1] === 'open'){
+       validar(element.firstElementChild, card.firstElementChild);
+     }
+   });
+ };
+
+ let validar = (element1, element2) => {
+   if (element1.classList[1] == element2.classList[1]) {
+     esconder(cards);
+     element1.parentElement.classList.toggle('match');
+     element2.parentElement.classList.toggle('match');
+   }else{
+
+   }
+ }
+
 let mostrar = () => {
     event.target.classList.toggle('open');
     event.target.classList.toggle('show');
+    verificar(event.target);
 };
-
-let verificar = (element) => {
-  cards.forEach(card => {
-    if(card.classList[1] === 'open'){
-      validar(element.firstElementChild, card.firstElementChild);
-    }
-  });
-}
 
 let adcionarListeners = (arr) => {
   arr.forEach( item => {
