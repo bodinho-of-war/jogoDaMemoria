@@ -21,7 +21,7 @@ let cards = [],
     'fa-bomb'
   ];
 let icone;
-let contador;
+let contador = 0;
 
 
 const ul = document.querySelector('.deck');
@@ -101,16 +101,20 @@ let esconder = (arr) => {
  };
 
  let validar = (element1, element2) => {
-   if (element1.classList[1] == element2.classList[1]) {
-     esconder(cards);
-     element1.parentElement.classList.toggle('match');
-     element2.parentElement.classList.toggle('match');
-   }else{
-
-   }
+   if(contador === 2){
+     contador = 0;
+     if (element1.classList[1] === element2.classList[1]) {
+       console.log(element2.classList[1]);
+       setTimeout(esconder, 3000, cards);
+       element1.parentElement.classList.toggle('match');
+       element2.parentElement.classList.toggle('match');
+    }
+    setTimeout(esconder, 3000, cards);
+  }
  }
 
 let mostrar = () => {
+    contador++;
     event.target.classList.toggle('open');
     event.target.classList.toggle('show');
     verificar(event.target);
