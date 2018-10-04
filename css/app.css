@@ -82,6 +82,47 @@ h1 {
 }
 
 /*
+ *Styeles for the Game Over mensage
+ */
+
+.game-over {
+  width: 100%;
+  height: 200px;
+  background: #ffffff url('../img/geometry2.png');
+  position: absolute;
+  justify-content: center;
+  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+}
+
+.game-over > div {
+  text-align: center;
+}
+
+.game-over.not-visible {
+  display: none;
+}
+
+.my-button {
+	background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+	-moz-border-radius:28px;
+	-webkit-border-radius:28px;
+	border-radius:28px;
+	border:1px solid #18ab29;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	padding:16px 31px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #2f6627;
+}
+.my-button:active {
+	position:relative;
+	top:1px;
+}
+.my-button:focus{
+  outline: none;
+}
+/*
  * Styles for the Score Panel
  */
 

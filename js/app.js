@@ -44,6 +44,7 @@ let exibir = () => {
 
 let marcaPonto = () => {
    document.querySelector('.moves').textContent = move;
+   gameOver();
 };
 
 //REMOVE TODOS OS EVENTSLISTENERS
@@ -109,9 +110,28 @@ let init = () => {
 }
 
 let resetar = () => {
-  cards.forEach(card => card.remove());
-  setTimeout(init,500);
+  over.classList.add('not-visible');
+  cards.forEach(card => {
+    card.classList.remove('match');
+    card.remove()
+  });
+  setTimeout(init,100);
 }
+
+let gameOver = () => {
+  matchs = 0;
+  for (var i = 0; i <  cards.length; i++){
+    if(!(cards[i].classList.contains('match'))){
+      break;
+    }
+    matchs++;
+  }
+  if(cards.length === matchs ){
+    points.textContent = `${move}`;
+    over.classList.toggle('not-visible');
+  }
+}
+
 
 /**************************************************
 **************************************************/
@@ -135,11 +155,15 @@ let cards = [],
     'fa-bicycle',
     'fa-bomb'
   ],
- icone,
+ icone,contador,move,matchs,
  el1, el2;
 
 const reset = document.querySelector('.restart');
+const over = document.querySelector('.game-over');
+const poists = document.querySelector('#points');
+const button = document.querySelector('.my-button');
 
+button.addEventListener('click', resetar);
 reset.addEventListener('click', resetar);
 
 const ul = document.querySelector('.deck');
