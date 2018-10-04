@@ -21,6 +21,8 @@ let shuffle = (array) => {
     return array;
 };
 
+//CRIA TODOS OS CARDS DO JOGO
+
 let criarCards = (arr) => {
   for (let i = 0; i < 16; i++){
     arr.push(document.createElement('li'));
@@ -33,6 +35,8 @@ let criarCards = (arr) => {
     card.classList.toggle('card');
   });
 };
+
+//INSERI TODOS OS CARDS CRIADOS NO ELEMENTO DECK
 
 let exibir = () => {
   cards.forEach(card => {
@@ -102,6 +106,8 @@ let adcionarListeners = () => {
   });
 };
 
+//FUNÇÃO RESPOSNSAVEL POR INICIALIZAR O JOGO
+
 let init = () => {
   contador = 0, move = 0;
   shuffle(cards);
@@ -109,6 +115,8 @@ let init = () => {
   marcaPonto();
   adcionarListeners(cards);
 }
+
+//RESETA O JOGO
 
 let resetar = () => {
   over.classList.add('not-visible');
@@ -118,6 +126,8 @@ let resetar = () => {
   });
   setTimeout(init,100);
 }
+
+//EXIBE MENSAGEM DE GAME OVER E MOSTRA QUANTIDADE DE MOVIMENTOS
 
 let gameOver = () => {
   matchs = 0;
