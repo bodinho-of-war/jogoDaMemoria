@@ -57,11 +57,13 @@ let marcaPonto = () => {
 
 //REMOVER AS CLASSES OPEN E SHOW DOS ELEMENTOS CARDS
 
- let esconder = (arr) => {
-   arr.forEach(item => {
+ let esconder = () => {
+   cards.forEach(item => {
      item.classList.remove('open');
      item.classList.remove('show');
+
    });
+   adcionarListeners();
  };
 
 //VERIFICA SE AS CLASSES DOS ICONES SÃO IGUAIS
@@ -70,12 +72,11 @@ let validar = (element1, element2) => {
     removerListeners(cards);
     contador = 0;
     move++;
-    if (element1.classList[1].toString() == element2.classList[1].toString()) {
+    if (element1.classList[1] === element2.classList[1]) {
       element1.parentElement.classList.add('match');
       element2.parentElement.classList.add('match');
    };
-   setTimeout(esconder, 1000, cards);
-   setTimeout(adcionarListeners, 1050, cards);
+   setTimeout(esconder, 1000);
    marcaPonto();
 };
 
@@ -83,8 +84,8 @@ let validar = (element1, element2) => {
 
 let mostrar = () => {
     contador++;
-    event.target.classList.toggle('open');
-    event.target.classList.toggle('show');
+    event.target.classList.add('open');
+    event.target.classList.add('show');
     if(contador === 2){
       el2 = event.target;
       validar(el1.firstElementChild, el2.firstElementChild);
@@ -95,8 +96,8 @@ let mostrar = () => {
 
 //ADICIONA EVENTLISTENERS A TODOS OS ELEMENTOS CARD
 
-let adcionarListeners = (arr) => {
-  arr.forEach( item => {
+let adcionarListeners = () => {
+  cards.forEach( item => {
     item.addEventListener('click', mostrar);
   });
 };
