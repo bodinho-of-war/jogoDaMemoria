@@ -22,7 +22,8 @@ let cards = [],
   ];
 let icone;
 let contador = 0;
-
+let el1;
+let el2;
 
 const ul = document.querySelector('.deck');
 
@@ -92,37 +93,37 @@ let esconder = (arr) => {
   });
 };
 
- let verificar = (element) => {
-   cards.forEach(card => {
-     if(card.classList[1] === 'open'){
-       validar(element.firstElementChild, card.firstElementChild);
-     }
-   });
- };
-
- let validar = (element1, element2) => {
-   if(contador === 2){
+let validar = (element1, element2) => {
+     removerListeners(cards);
      contador = 0;
-     if (element1.classList[1] === element2.classList[1]) {
-       console.log(element2.classList[1]);
-       setTimeout(esconder, 3000, cards);
-       element1.parentElement.classList.toggle('match');
-       element2.parentElement.classList.toggle('match');
+     if (element1.classList[1].toString() == element2.classList[1].toString()) {
+       element1.parentElement.classList.add('match');
+       element2.parentElement.classList.add('match');
     }
-    setTimeout(esconder, 3000, cards);
-  }
+    setTimeout(esconder, 1000, cards);
+    setTimeout(adcionarListeners, 1050, cards);
  }
 
 let mostrar = () => {
     contador++;
     event.target.classList.toggle('open');
     event.target.classList.toggle('show');
-    verificar(event.target);
+    if(contador === 2){
+      el2 = event.target;
+      validar(el1.firstElementChild, el2.firstElementChild);
+    }
+    el1 = event.target;
 };
 
 let adcionarListeners = (arr) => {
   arr.forEach( item => {
     item.addEventListener('click', mostrar);
+  });
+};
+
+let removerListeners = (arr) => {
+  arr.forEach(item => {
+      item.removeEventListener('click', mostrar);
   });
 };
 
