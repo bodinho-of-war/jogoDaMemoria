@@ -1,6 +1,121 @@
 /*
  * Create a list that holds all of your cards
  */
+
+/******************* FUNÇÕES **********************
+**************************************************/
+
+// Shuffle function from http://stackoverflow.com/a/2450976
+
+let shuffle = (array) => {
+    let currentIndex = array.length, temporaryValue, randomIndex;
+
+    while (currentIndex !== 0) {
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+    };
+
+    return array;
+};
+
+let criarCards = (arr) => {
+  for (let i = 0; i < 16; i++){
+    arr.push(document.createElement('li'));
+    icone = document.createElement('i');
+    icone.classList.toggle('fa');
+    icone.classList.toggle(icones[i]);
+    arr[i].appendChild(icone);
+  };
+  arr.forEach((card) => {
+    card.classList.toggle('card');
+  });
+};
+
+let exibir = () => {
+  cards.forEach(card => {
+    ul.appendChild(card);
+  });
+};
+
+//INCREMENTA O CONTADOR DE MOVIMENTOS
+
+let marcaPonto = () => {
+   document.querySelector('.moves').textContent = move;
+};
+
+//REMOVE TODOS OS EVENTSLISTENERS
+
+ let removerListeners = (arr) => {
+   arr.forEach(item => {
+       item.removeEventListener('click', mostrar);
+   });
+ };
+
+//REMOVER AS CLASSES OPEN E SHOW DOS ELEMENTOS CARDS
+
+ let esconder = (arr) => {
+   arr.forEach(item => {
+     item.classList.remove('open');
+     item.classList.remove('show');
+   });
+ };
+
+//VERIFICA SE AS CLASSES DOS ICONES SÃO IGUAIS
+
+let validar = (element1, element2) => {
+    removerListeners(cards);
+    contador = 0;
+    move++;
+    if (element1.classList[1].toString() == element2.classList[1].toString()) {
+      element1.parentElement.classList.add('match');
+      element2.parentElement.classList.add('match');
+   };
+   setTimeout(esconder, 1000, cards);
+   setTimeout(adcionarListeners, 1050, cards);
+   marcaPonto();
+};
+
+//ADICIONA AS CLASSES OPEN E SHOW AOS ELEMENTOS CARDS
+
+let mostrar = () => {
+    contador++;
+    event.target.classList.toggle('open');
+    event.target.classList.toggle('show');
+    if(contador === 2){
+      el2 = event.target;
+      validar(el1.firstElementChild, el2.firstElementChild);
+    };
+    el1 = event.target;
+    el1.removeEventListener('click', mostrar);
+};
+
+//ADICIONA EVENTLISTENERS A TODOS OS ELEMENTOS CARD
+
+let adcionarListeners = (arr) => {
+  arr.forEach( item => {
+    item.addEventListener('click', mostrar);
+  });
+};
+
+let init = () => {
+  contador = 0, move = 0;
+  shuffle(cards);
+  exibir();
+  marcaPonto();
+  adcionarListeners(cards);
+}
+
+let resetar = () => {
+  cards.forEach(card => card.remove());
+  setTimeout(init,500);
+}
+
+/**************************************************
+**************************************************/
+
 let cards = [],
   icones = [
     'fa-diamond',
@@ -19,51 +134,19 @@ let cards = [],
     'fa-leaf',
     'fa-bicycle',
     'fa-bomb'
-  ];
-let icone;
-let contador = 0;
-let move = 0;
-let el1;
-let el2;
+  ],
+ icone,
+ el1, el2;
+
+const reset = document.querySelector('.restart');
+
+reset.addEventListener('click', resetar);
 
 const ul = document.querySelector('.deck');
 
-let criarCards = (arr) => {
-  for (let i = 0; i < 16; i++){
-    arr.push(document.createElement('li'));
-    icone = document.createElement('i');
-    icone.classList.toggle('fa');
-    icone.classList.toggle(icones[i]);
-    arr[i].appendChild(icone);
-  }
-  arr.forEach((card) => {
-    card.classList.toggle('card');
-  });
-}
-
-// Shuffle function from http://stackoverflow.com/a/2450976
-
-let shuffle = (array) => {
-    let currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
-
-    return array;
-}
-
-let exibir = () => {
-  cards.forEach(card => {
-    ul.appendChild(card);
-  });
-};
-
 criarCards(cards);
+
+init();
 
 /*
  * Display the cards on the page
@@ -71,18 +154,6 @@ criarCards(cards);
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
-
-//INCREMENTA O CONTADOR DE MOVIMENTOS
-
- let marcaPonto = () => {
-   document.querySelector('.moves').textContent = move;
- }
-
-shuffle(cards);
-
-exibir();
-
-marcaPonto();
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -94,60 +165,3 @@ marcaPonto();
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-//REMOVE TODOS OS EVENTSLISTENERS
-
- let removerListeners = (arr) => {
-   arr.forEach(item => {
-       item.removeEventListener('click', mostrar);
-   });
- };
-
-//REMOVER AS CLASSES OPEN E SHOW DOS ELEMENTOS CARDS
-
-let esconder = (arr) => {
-  arr.forEach(item => {
-    item.classList.remove('open');
-    item.classList.remove('show');
-  });
-};
-
-//VERIFICA SE AS CLASSES DOS ICONES SÃO IGUAIS
-
-let validar = (element1, element2) => {
-     removerListeners(cards);
-     contador = 0;
-     move++;
-     if (element1.classList[1].toString() == element2.classList[1].toString()) {
-       element1.parentElement.classList.add('match');
-       element2.parentElement.classList.add('match');
-    }
-    setTimeout(esconder, 1000, cards);
-    setTimeout(adcionarListeners, 1050, cards);
-    marcaPonto();
- }
-
-//ADICIONA AS CLASSES OPEN E SHOW AOS ELEMENTOS CARDS
-
-let mostrar = () => {
-    contador++;
-    event.target.classList.toggle('open');
-    event.target.classList.toggle('show');
-    if(contador === 2){
-      el2 = event.target;
-      validar(el1.firstElementChild, el2.firstElementChild);
-    }
-    el1 = event.target;
-    el1.removeEventListener('click', mostrar);
-};
-
-//ADICIONA EVENTLISTENERS A TODOS OS ELEMENTOS CARD
-
-let adcionarListeners = (arr) => {
-  arr.forEach( item => {
-    item.addEventListener('click', mostrar);
-  });
-};
-
-
-adcionarListeners(cards);
