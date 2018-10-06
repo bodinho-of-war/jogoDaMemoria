@@ -5,6 +5,12 @@
 /******************* FUNÇÕES **********************
 **************************************************/
 
+// INCREMENTA O Tempo
+
+let incrementar = () => {
+
+}
+
 // Shuffle function from http://stackoverflow.com/a/2450976
 
 let shuffle = (array) => {
@@ -19,7 +25,7 @@ let shuffle = (array) => {
     };
 
     return array;
-};
+}
 
 //CRIA TODOS OS CARDS DO JOGO
 
@@ -34,7 +40,7 @@ let criarCards = (arr) => {
   arr.forEach((card) => {
     card.classList.toggle('card');
   });
-};
+}
 
 //INSERI TODOS OS CARDS CRIADOS NO ELEMENTO DECK
 
@@ -42,14 +48,14 @@ let exibir = () => {
   cards.forEach(card => {
     ul.appendChild(card);
   });
-};
+}
 
 //INCREMENTA O CONTADOR DE MOVIMENTOS
 
 let marcaPonto = () => {
    document.querySelector('.moves').textContent = move;
    gameOver();
-};
+}
 
 //REMOVE TODOS OS EVENTSLISTENERS
 
@@ -57,7 +63,7 @@ let marcaPonto = () => {
    arr.forEach(item => {
        item.removeEventListener('click', mostrar);
    });
- };
+ }
 
 //REMOVER AS CLASSES OPEN E SHOW DOS ELEMENTOS CARDS
 
@@ -68,7 +74,7 @@ let marcaPonto = () => {
 
    });
    adcionarListeners();
- };
+ }
 
 //VERIFICA SE AS CLASSES DOS ICONES SÃO IGUAIS
 
@@ -82,7 +88,7 @@ let validar = (element1, element2) => {
    };
    setTimeout(esconder, 1000);
    marcaPonto();
-};
+}
 
 //ADICIONA AS CLASSES OPEN E SHOW AOS ELEMENTOS CARDS
 
@@ -96,7 +102,7 @@ let mostrar = () => {
     };
     el1 = event.target;
     el1.removeEventListener('click', mostrar);
-};
+}
 
 //ADICIONA EVENTLISTENERS A TODOS OS ELEMENTOS CARD
 
@@ -104,7 +110,7 @@ let adcionarListeners = () => {
   cards.forEach( item => {
     item.addEventListener('click', mostrar);
   });
-};
+}
 
 //FUNÇÃO RESPOSNSAVEL POR INICIALIZAR O JOGO
 
@@ -167,18 +173,22 @@ let cards = [],
     'fa-bomb'
   ],
  icone,contador,move,matchs,
- el1, el2;
+ el1, el2,
+ sengundos = '00', minutos = '00',
+ cronometro = `${minutos}:${sengundos}`;
 
 const reset   = document.querySelector('.restart');
 const over    = document.querySelector('.game-over');
 const poists  = document.querySelector('#points');
 const button  = document.querySelector('.my-button');
-const tempo   = document.querySelector('');
+const tempo   = document.querySelector('.temporizador');
+const ul      = document.querySelector('.deck');
 
 button.addEventListener('click', resetar);
 reset.addEventListener('click', resetar);
+tempo.firstElementChild.textContent = `Tempo: ${cronometro}`;
 
-const ul = document.querySelector('.deck');
+tempo.classList.toggle('not-visible');
 
 criarCards(cards);
 

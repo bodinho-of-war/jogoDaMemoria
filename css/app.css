@@ -37,8 +37,9 @@ h1 {
  * Styles for the deck of cards
  */
 
-.temporizador {
-
+.temporizador p {
+  padding: 0;
+  margin: 0;
 }
 
 /*
@@ -139,6 +140,8 @@ h1 {
     text-align: left;
     width: 345px;
     margin-bottom: 10px;
+    display: flex;
+    justify-content: space-around;
 }
 
 .score-panel .stars {
