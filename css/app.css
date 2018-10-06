@@ -37,6 +37,14 @@ h1 {
  * Styles for the deck of cards
  */
 
+.temporizador {
+
+}
+
+/*
+ * Styles for the deck of cards
+ */
+
 .deck {
     width: 660px;
     min-height: 680px;
@@ -98,7 +106,7 @@ h1 {
   text-align: center;
 }
 
-.game-over.not-visible {
+.not-visible {
   display: none;
 }
 

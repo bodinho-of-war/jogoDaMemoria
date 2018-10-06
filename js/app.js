@@ -169,10 +169,11 @@ let cards = [],
  icone,contador,move,matchs,
  el1, el2;
 
-const reset = document.querySelector('.restart');
-const over = document.querySelector('.game-over');
-const poists = document.querySelector('#points');
-const button = document.querySelector('.my-button');
+const reset   = document.querySelector('.restart');
+const over    = document.querySelector('.game-over');
+const poists  = document.querySelector('#points');
+const button  = document.querySelector('.my-button');
+const tempo   = document.querySelector('');
 
 button.addEventListener('click', resetar);
 reset.addEventListener('click', resetar);
