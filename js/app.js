@@ -104,6 +104,22 @@ let marcaPonto = () => {
    adcionarListeners();
  }
 
+let removerEstrela = () => {
+  if(move === 9) {
+    stars.children[0].firstElementChild.classList.remove('fa-star');
+  } else if (move === 17) {
+    stars.children[1].firstElementChild.classList.remove('fa-star');
+  } else if (move === 25) {
+    stars.children[2].firstElementChild.classList.remove('fa-star');
+  }
+}
+
+let adicionarEstrelas = () => {
+  for (var child of stars.children)  {
+    child.firstElementChild.classList.add('fa-star');
+  }
+}
+
 //VERIFICA SE AS CLASSES DOS ICONES SÃO IGUAIS
 
 let validar = (element1, element2) => {
@@ -114,6 +130,7 @@ let validar = (element1, element2) => {
       element1.parentElement.classList.add('match');
       element2.parentElement.classList.add('match');
    };
+   removerEstrela();
    setTimeout(esconder, 1000);
    marcaPonto();
 }
@@ -158,8 +175,12 @@ let resetar = () => {
   over.classList.add('not-visible');
   cards.forEach(card => {
     card.classList.remove('match');
-    card.remove()
+    card.classList.remove('open');
+    card.classList.remove('show');
+    card.remove();
   });
+  clearInterval(intervalo);
+  adicionarEstrelas();
   setTimeout(init,100);
 }
 
@@ -215,6 +236,7 @@ const poists  = document.querySelector('#points');
 const button  = document.querySelector('.my-button');
 const tempo   = document.querySelector('.temporizador');
 const ul      = document.querySelector('.deck');
+const stars   = document.querySelector('.stars');
 
 button.addEventListener('click', resetar);
 reset.addEventListener('click', resetar);
