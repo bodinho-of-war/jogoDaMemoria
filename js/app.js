@@ -7,10 +7,32 @@
 
 // INCREMENTA O Tempo
 
-let incrementar = () => {
-
+let incrementar = (numero) => {
+  numero++;
+  return numero;
 }
 
+let concatenar = (numero) => {
+  (numero.length === 1)? numero = `0${numero}`
+  : numero = `${numero}`;
+  return numero;
+}
+
+let cronometrar = () => {
+  segundos = String(incrementar(Number(segundos)));
+  segundos = concatenar(segundos);
+  if(Number(segundos) > 59){
+    minutos = String(incrementar(Number(minutos)));
+    minutos = concatenar(minutos);
+    segundos = "00";
+  }
+  cronometro = `${minutos}:${segundos}`;
+  tempo.firstElementChild.textContent = `Tempo: ${cronometro}`;
+}
+
+let contarTempo = () => {
+  intervalo = setInterval(cronometro, 1000);
+}
 // Shuffle function from http://stackoverflow.com/a/2450976
 
 let shuffle = (array) => {
@@ -109,6 +131,7 @@ let mostrar = () => {
 let adcionarListeners = () => {
   cards.forEach( item => {
     item.addEventListener('click', mostrar);
+    item.addEventListener('click', contarTempo);
   });
 }
 
@@ -116,6 +139,7 @@ let adcionarListeners = () => {
 
 let init = () => {
   contador = 0, move = 0;
+
   shuffle(cards);
   exibir();
   marcaPonto();
@@ -143,6 +167,7 @@ let gameOver = () => {
     }
     matchs++;
   }
+  clearInterval(intervalo);
   if(cards.length === matchs ){
     points.textContent = `${move}`;
     over.classList.toggle('not-visible');
@@ -174,8 +199,10 @@ let cards = [],
   ],
  icone,contador,move,matchs,
  el1, el2,
- sengundos = '00', minutos = '00',
- cronometro = `${minutos}:${sengundos}`;
+ segundos, minutos,
+ cronometro, intervalo;
+
+segundos = '00', minutos = '00', cronometro = `${minutos}:${segundos}`;
 
 const reset   = document.querySelector('.restart');
 const over    = document.querySelector('.game-over');
@@ -186,8 +213,8 @@ const ul      = document.querySelector('.deck');
 
 button.addEventListener('click', resetar);
 reset.addEventListener('click', resetar);
-tempo.firstElementChild.textContent = `Tempo: ${cronometro}`;
 
+tempo.firstElementChild.textContent = `Tempo: ${cronometro}`;
 tempo.classList.toggle('not-visible');
 
 criarCards(cards);
