@@ -31,7 +31,13 @@ let cronometrar = () => {
 }
 
 let contarTempo = () => {
-  intervalo = setInterval(cronometro, 1000);
+  ul.removeEventListener('click', contarTempo);
+  intervalo = setInterval(cronometrar, 1000);
+}
+
+let iniciarTempo = () => {
+  segundos = '00', minutos = '00', cronometro = `${minutos}:${segundos}`;
+  tempo.firstElementChild.textContent = `Tempo: ${cronometro}`;
 }
 // Shuffle function from http://stackoverflow.com/a/2450976
 
@@ -131,7 +137,6 @@ let mostrar = () => {
 let adcionarListeners = () => {
   cards.forEach( item => {
     item.addEventListener('click', mostrar);
-    item.addEventListener('click', contarTempo);
   });
 }
 
@@ -139,7 +144,8 @@ let adcionarListeners = () => {
 
 let init = () => {
   contador = 0, move = 0;
-
+  ul.addEventListener('click',contarTempo);
+  iniciarTempo();
   shuffle(cards);
   exibir();
   marcaPonto();
@@ -167,8 +173,9 @@ let gameOver = () => {
     }
     matchs++;
   }
-  clearInterval(intervalo);
+
   if(cards.length === matchs ){
+    clearInterval(intervalo);
     points.textContent = `${move}`;
     over.classList.toggle('not-visible');
   }
@@ -202,8 +209,6 @@ let cards = [],
  segundos, minutos,
  cronometro, intervalo;
 
-segundos = '00', minutos = '00', cronometro = `${minutos}:${segundos}`;
-
 const reset   = document.querySelector('.restart');
 const over    = document.querySelector('.game-over');
 const poists  = document.querySelector('#points');
@@ -214,7 +219,6 @@ const ul      = document.querySelector('.deck');
 button.addEventListener('click', resetar);
 reset.addEventListener('click', resetar);
 
-tempo.firstElementChild.textContent = `Tempo: ${cronometro}`;
 tempo.classList.toggle('not-visible');
 
 criarCards(cards);
